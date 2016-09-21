@@ -10,6 +10,8 @@ import {ACTIVE, STUCK, DONE, FUTURE, SORT_STEP, USER_DASH, TEAM_DASH, MEETING} f
 import FontAwesome from 'react-fontawesome';
 import {cashay} from 'cashay';
 import shortid from 'shortid';
+import AddCard from 'universal/components/AddCard/AddCard';
+import EmptyCard from 'universal/components/EmptyCard/EmptyCard';
 
 const combineStyles = StyleSheet.combineStyles;
 const borderColor = ui.dashBorderColor;
@@ -47,6 +49,14 @@ const ProjectColumn = (props) => {
   // TODO do it fur real
   const MeetingCardContainer = ProjectCardContainer;
   const CardContainer = area === MEETING ? MeetingCardContainer : ProjectCardContainer;
+  const UserEmptyCard = (
+    <EmptyCard
+      copy="Navigate to a Team to create a Project."
+      heading="Keep Calm; No Projects"
+      icon="lightbulb-o"
+    />);
+  const TeamAddCard = (<AddCard onClick={handleAddProject} />);
+  const ColumnEmptyCard = area === TEAM_DASH ? TeamAddCard : UserEmptyCard;
 
   return (
     <div className={styles.column}>
@@ -68,12 +78,17 @@ const ProjectColumn = (props) => {
       </div>
       <div className={styles.columnBody}>
         <div className={styles.columnInner}>
-          {projects.map(project =>
-            <CardContainer
-              key={`teamCard${project.id}`}
-              area={area}
-              project={project}
-            />)
+          {projects.length ?
+            <div>
+              {projects.map(project =>
+                <CardContainer
+                  key={`teamCard${project.id}`}
+                  area={area}
+                  project={project}
+                />)
+              }
+            </div> :
+            <div>{ColumnEmptyCard}</div>
           }
         </div>
       </div>

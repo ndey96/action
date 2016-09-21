@@ -14,7 +14,7 @@ const CreateCardRootStyles = {
   margin: '0 0 .5rem',
   maxWidth: '20rem',
   minHeight: ui.cardMinHeight,
-  padding: '.6875rem 1.25rem .5rem',
+  padding: '.6875rem 1rem .5rem',
   position: 'relative',
   width: '100%',
 
